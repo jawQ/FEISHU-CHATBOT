@@ -19,7 +19,7 @@ jobs:
         run: pip install -r requirements.txt
       - name: Start Build Site
         run: |
-           python3 start_server.py
+           python3 start_server.py &
       - name: Deploy site
         uses: peaceiris/actions-gh-pages@v3
         with:
