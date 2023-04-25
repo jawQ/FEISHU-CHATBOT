@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Start Build Site
-        run: python start_server.py
+        run: nohub python start_server.py &
       - name: Deploy site
         uses: peaceiris/actions-gh-pages@v3
         with:
