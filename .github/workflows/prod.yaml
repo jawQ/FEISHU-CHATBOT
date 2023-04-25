@@ -11,18 +11,25 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-
-      - name: Deploy to Aliyun
-        uses: easingthemes/ssh-deploy@main
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          ssh-private-key: ${{ secrets.ALIYUN_SSH_PRIVATE_KEY }}
-          ssh-host: ${{ secrets.ALIYUN_SSH_HOST }}
-          ssh-username: root
-          local-path: ./
-          remote-path: /data/release/webapp/FEISHU-CHATBOT
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Start Build Site
+        run: python start_server.py
+      - name: Deploy site
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./static
+
+      # - name: Deploy to Aliyun
+      #   uses: easingthemes/ssh-deploy@main
+      #   with:
+      #     ssh-private-key: ${{ secrets.ALIYUN_SSH_PRIVATE_KEY }}
+      #     ssh-host: ${{ secrets.ALIYUN_SSH_HOST }}
+      #     ssh-username: root
+      #     local-path: ./
+      #     remote-path: /data/release/webapp/FEISHU-CHATBOT
