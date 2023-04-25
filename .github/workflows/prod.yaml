@@ -1,0 +1,28 @@
+name: Deploy to Aliyun
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to Aliyun
+        uses: easingthemes/ssh-deploy@main
+        with:
+          ssh-private-key: ${{ secrets.ALIYUN_SSH_PRIVATE_KEY }}
+          ssh-host: ${{ secrets.ALIYUN_SSH_HOST }}
+          ssh-username: root
+          local-path: ./
+          remote-path: /data/release/webapp/FEISHU-CHATBOT
