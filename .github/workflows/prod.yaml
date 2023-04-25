@@ -24,6 +24,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          external_repository: jawQ/FEISHU-CHATBOT.github.io
           publish_dir: ./public
 
       # - name: Deploy to Aliyun
