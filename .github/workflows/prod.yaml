@@ -19,12 +19,11 @@ jobs:
         run: pip install -r requirements.txt
       - name: Start Build Site
         run: |
-          nohup python start_server.py >/dev/null 2>&1 & working-directory: ${{ github.workspace }}
+           python3 start_server.py
       - name: Deploy site
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./static
 
       # - name: Deploy to Aliyun
       #   uses: easingthemes/ssh-deploy@main
